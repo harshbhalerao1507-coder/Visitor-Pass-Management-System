@@ -108,7 +108,7 @@ npm run dev
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-SECRET="greatestyoucaneverbe"
+SECRET=your_jwt_secret
 EXPIRE=7d
 ```
 
