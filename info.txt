@@ -1,0 +1,20 @@
+6a560a844fdd5d1b2597cf8e emp id
+6a52422b5a6441f7979f0ec7 vis id
+6a560bbaf7586f6a3160e3dd app id
+
+{
+  "visitor": "6a52422b5a6441f7979f0ec7",
+  "appointment": "6a560bbaf7586f6a3160e3dd",
+  "passNumber": "PASS001",
+  "validFrom": "2026-07-14",
+  "validTo": "2026-07-15",
+  "status": "Active"
+}
+
+6a560c61f7586f6a3160e3de pass id
+
+
+
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTUwZmIxOTFlMTg3MTU4OGM0OGI5N2UiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3ODQwMjM5NTUsImV4cCI6MTc4NDExMDM1NX0.s5rzre8y22hyCkYqBTEgiWKvZD1291andDfk6tl8eJc

@@ -1,0 +1,1 @@
+import express from "express"import { getDashboard } from "../controllers/dashboardControllers.js"import { reqAuth } from "../middleware/authMiddleware.js";import { requireRole } from "../middleware/roleMiddleware.js";const router=express.Router()router.get("/", reqAuth, requireRole("Admin", "Security", "Employee"), getDashboard)export default router;
