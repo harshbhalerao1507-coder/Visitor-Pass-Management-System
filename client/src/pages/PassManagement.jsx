@@ -6,17 +6,22 @@ import QRModal from "../components/QRModal";
 import DeletePassDialog from "../components/DeletePassDialog";
 import { FaPlus, FaTrash, FaSearch, FaQrcode, FaFilePdf } from "react-icons/fa";
 import "./PassManagement.css";
+
 export default function PassManagement() {
     const [passes, setPasses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [notification, setNotification] = useState("");
+    
+    // Modal states
     const [showGenerateModal, setShowGenerateModal] = useState(false);
     const [selectedQRPass, setSelectedQRPass] = useState(null);
     const [deletingPass, setDeletingPass] = useState(null);
+
     useEffect(() => {
         fetchPasses();
     }, []);
+
     const fetchPasses = async () => {
         setLoading(true);
         try {
@@ -32,10 +37,13 @@ export default function PassManagement() {
             setLoading(false);
         }
     };
+
     const showNotification = (msg, isError = false) => {
+        // Here we could support error styling by state, but since the CSS handles .error class optionally:
         setNotification({ text: msg, isError });
         setTimeout(() => setNotification(""), 3000);
     };
+
     const handleDownloadPDF = async (pass) => {
         if (!pass.pdfPath) {
             showNotification("PDF not available for this pass", true);
@@ -45,12 +53,14 @@ export default function PassManagement() {
         const pdfUrl = `${baseUrl}/${pass.pdfPath}`;
         window.open(pdfUrl, "_blank");
     };
+
     const filteredPasses = passes.filter(pass => {
         const passNumberMatch = pass.passNumber?.toLowerCase().includes(searchTerm.toLowerCase());
         const visitorMatch = pass.visitor?.name?.toLowerCase().includes(searchTerm.toLowerCase());
         const statusMatch = pass.status?.toLowerCase().includes(searchTerm.toLowerCase());
         return passNumberMatch || visitorMatch || statusMatch;
     });
+
     return (
         <>
             <Sidebar />
@@ -60,12 +70,14 @@ export default function PassManagement() {
                         {notification.text}
                     </div>
                 )}
+
                 <div className="page-header d-flex justify-between align-center">
                     <h1>Pass Management</h1>
                     <button className="btn-primary" onClick={() => setShowGenerateModal(true)}>
                         <FaPlus className="icon-sm" /> Generate Pass
                     </button>
                 </div>
+                
                 <div className="search-bar-container">
                     <FaSearch className="search-icon" />
                     <input 
@@ -76,6 +88,7 @@ export default function PassManagement() {
                         className="search-input"
                     />
                 </div>
+
                 <div className="table-container">
                     <table className="data-table">
                         <thead>
@@ -144,6 +157,7 @@ export default function PassManagement() {
                         </tbody>
                     </table>
                 </div>
+
                 {showGenerateModal &&
                     <GeneratePassModal
                         onClose={() => setShowGenerateModal(false)}
@@ -151,12 +165,14 @@ export default function PassManagement() {
                         onShowNotification={showNotification}
                     />
                 }
+
                 {selectedQRPass &&
                     <QRModal
                         pass={selectedQRPass}
                         onClose={() => setSelectedQRPass(null)}
                     />
                 }
+
                 {deletingPass && 
                     <DeletePassDialog
                         pass={deletingPass}
