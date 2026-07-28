@@ -27,8 +27,7 @@ export default function CheckIn() {
             setSelectedPassId("");
             setRefreshKey(prev => prev + 1); 
         } catch (err) {
-            console.error(err);
-            const errorMsg = err.response?.data?.message || err.response?.data?.error || "Error during check-in";
+            const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message || "Error during check-in";
             showNotification(errorMsg, true);
         } finally {
             setLoading(false);

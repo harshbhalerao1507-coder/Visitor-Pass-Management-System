@@ -31,7 +31,8 @@ export default function Appointments() {
             setVisitors(visRes.data.visitors || []);
             setEmployees(empRes.data.employees || []);
         } catch (e) {
-            console.log(e);
+            const errorMsg = e.response?.data?.error || e.response?.data?.message || e.message || "Failed to fetch data";
+            showNotification(errorMsg);
         } finally {
             setLoading(false);
         }
@@ -44,7 +45,8 @@ export default function Appointments() {
             });
             setAppointments(res.data.Appointments || []);
         } catch (e) {
-            console.log(e);
+            const errorMsg = e.response?.data?.error || e.response?.data?.message || e.message || "Failed to fetch appointments";
+            showNotification(errorMsg);
         }
     };
     const showNotification = (msg) => {
@@ -73,8 +75,8 @@ export default function Appointments() {
             getAppointments();
             setDeletingAppointment(null);
         } catch (e) {
-            console.log(e);
-            showNotification("Error deleting appointment");
+            const errorMsg = e.response?.data?.error || e.response?.data?.message || e.message || "Error deleting appointment";
+            showNotification(errorMsg);
         } finally {
             setIsDeleting(false);
         }

@@ -54,8 +54,8 @@ export default function AddVisitorModal({ onClose, refreshVisitors, editingVisit
             refreshVisitors();
             onClose();
         } catch (err) {
-            console.log(err);
-            setError(err.response?.data?.error || "An error occurred");
+            const errorMsg = err.response?.data?.error || err.response?.data?.message || err.message || "An error occurred";
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }
@@ -98,6 +98,15 @@ export default function AddVisitorModal({ onClose, refreshVisitors, editingVisit
                     <div className="form-row">
                         <div className="form-group">
                             <label>Visitor Photo</label>
+                            {editingVisitor && editingVisitor.photo && typeof photo === 'string' && (
+                                <div style={{ marginBottom: '10px' }}>
+                                    <img 
+                                        src={`${import.meta.env.VITE_API_URL.replace("/api","")}/uploads/${editingVisitor.photo}`} 
+                                        alt="Current" 
+                                        style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }} 
+                                    />
+                                </div>
+                            )}
                             <input
                                 type="file"
                                 accept="image/*"

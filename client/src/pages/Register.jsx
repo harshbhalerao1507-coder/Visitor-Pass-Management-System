@@ -9,9 +9,14 @@ export default function Register() {
     const [role, setRole] = useState("Employee");
     const [phone, setPhone] = useState("");
     const [department, setDepartment] = useState("");
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+
     const handleRegister = async (e) => {
         e.preventDefault();
+        setError(null);
+        setIsLoading(true);
         try {
             const data = await registerUser({
                 name, email, password, role, phone, department
@@ -20,7 +25,10 @@ export default function Register() {
             localStorage.setItem("user", JSON.stringify(data.user));
             navigate("/dashboard");
         } catch (e) {
-            console.log(e);
+            const errorMsg = e.response?.data?.error || e.response?.data?.message || e.message || "An error occurred";
+            setError(errorMsg);
+        } finally {
+            setIsLoading(false);
         }
     };
     return (
@@ -30,6 +38,7 @@ export default function Register() {
                     <h2>Create an account</h2>
                     <p>Enter your details to get started.</p>
                 </div>
+                {error && <div className="notification-toast error" style={{marginBottom: '1rem', color: 'White', textAlign: 'center'}}>{error}</div>}
                 <form onSubmit={handleRegister} className="auth-form">
                     <div className="form-group">
                         <label>Full Name</label>
@@ -61,8 +70,8 @@ export default function Register() {
                         <label>Department</label>
                         <input type="text" placeholder="Engineering" value={department} onChange={(e) => setDepartment(e.target.value)} />
                     </div>
-                    <button type="submit" className="auth-btn">
-                        Sign up
+                    <button type="submit" className="auth-btn" disabled={isLoading}>
+                        {isLoading ? "Signing up..." : "Sign up"}
                     </button>
                 </form>
                 <p className="auth-footer">

@@ -27,8 +27,7 @@ export default function CheckOut() {
             setSelectedPassId("");
             setRefreshKey(prev => prev + 1); 
         } catch (err) {
-            console.error(err);
-            const errorMsg = err.response?.data?.message || err.response?.data?.error || "Error during check-out";
+            const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message || "Error during check-out";
             showNotification(errorMsg, true);
         } finally {
             setLoading(false);

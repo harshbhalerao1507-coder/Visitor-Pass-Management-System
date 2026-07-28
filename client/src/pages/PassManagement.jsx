@@ -31,8 +31,8 @@ export default function PassManagement() {
             });
             setPasses(res.data.passes || []);
         } catch (e) {
-            console.error(e);
-            showNotification("Failed to fetch passes", true);
+            const errorMsg = e.response?.data?.error || e.response?.data?.message || e.message || "Failed to fetch passes";
+            showNotification(errorMsg, true);
         } finally {
             setLoading(false);
         }

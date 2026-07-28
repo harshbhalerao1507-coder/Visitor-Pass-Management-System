@@ -28,7 +28,8 @@ export default function Visitors(){
             });
             setVisitors(res.data.visitors);
         } catch (e) {
-            console.log(e);
+            const errorMsg = e.response?.data?.error || e.response?.data?.message || e.message || "Failed to fetch visitors";
+            showNotification(errorMsg);
         } finally {
             setLoading(false);
         }
@@ -55,8 +56,8 @@ export default function Visitors(){
             getVisitors();
             setDeletingVisitor(null);
         } catch (e) {
-            console.log(e);
-            showNotification("Error deleting visitor");
+            const errorMsg = e.response?.data?.error || e.response?.data?.message || e.message || "Error deleting visitor";
+            showNotification(errorMsg);
         } finally {
             setIsDeleting(false);
         }
@@ -92,7 +93,16 @@ export default function Visitors(){
                                 <tr key={visitor._id}>
                                     <td>
                                         <div className="user-cell">
-                                            <div className="user-avatar">{visitor.name.charAt(0)}</div>
+                                            {visitor.photo ? (
+                                                <img 
+                                                    src={`${import.meta.env.VITE_API_URL.replace("/api","")}/uploads/${visitor.photo}`} 
+                                                    alt={visitor.name} 
+                                                    className="user-avatar"
+                                                    style={{ objectFit: 'cover' }}
+                                                />
+                                            ) : (
+                                                <div className="user-avatar">{visitor.name.charAt(0)}</div>
+                                            )}
                                             <span className="user-name">{visitor.name}</span>
                                         </div>
                                     </td>

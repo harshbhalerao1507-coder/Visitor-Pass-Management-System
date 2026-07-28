@@ -13,9 +13,16 @@ export default function Dashboard(){
         totalCheckins:0,
         totalCheckouts:0
     });
+    const [notification, setNotification] = useState("");
+    
     useEffect(()=>{
         fetchDashboard();
     },[]);
+    
+    const showNotification = (msg) => {
+        setNotification(msg);
+        setTimeout(() => setNotification(""), 3000);
+    };
     const fetchDashboard=async()=>{
         try{
             const token=localStorage.getItem("token");
@@ -27,13 +34,15 @@ export default function Dashboard(){
             setStats(res.data);
         }
         catch(err){
-            console.log(err);
+            const errorMsg = err.response?.data?.error || err.response?.data?.message || err.message || "Failed to fetch dashboard stats";
+            showNotification(errorMsg);
         }
     }
     return(
         <>
             <Sidebar/>
             <div className="dashboard-layout">
+                {notification && <div className="notification-toast error" style={{background: '#ef4444', color: 'white', padding: '10px 20px', borderRadius: '8px', position: 'fixed', top: '20px', right: '20px', zIndex: 1000}}>{notification}</div>}
                 <div className="page-header">
                     <h1>Dashboard Overview</h1>
                 </div>
