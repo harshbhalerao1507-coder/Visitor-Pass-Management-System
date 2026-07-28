@@ -5,7 +5,7 @@ import { FaTimes } from "react-icons/fa";
 export default function AddVisitorModal({ onClose, refreshVisitors, editingVisitor, onShowNotification }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    const [phone, setPhone] = useState(null);
     const [address, setAddress] = useState("");
     const [company, setCompany] = useState("");
     const [photo, setPhoto] = useState("");
@@ -28,14 +28,25 @@ export default function AddVisitorModal({ onClose, refreshVisitors, editingVisit
         setError("");
         try {
             const token = localStorage.getItem("token");
-            const payload = { name, email, phone, address, company, photo, idProof };
+            const formData = new FormData();
+
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("phone", phone);
+            formData.append("address", address);
+            formData.append("company", company);
+            formData.append("idProof", idProof);
+
+            if (photo) {
+                formData.append("photo", photo);
+            }
             if (editingVisitor) {
-                await api.patch(`/visitors/${editingVisitor._id}`, payload, {
+                await api.patch(`/visitors/${editingVisitor._id}`,formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 onShowNotification("Visitor updated successfully!");
             } else {
-                await api.post("/visitors", payload, {
+                await api.post("/visitors", formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 onShowNotification("Visitor added successfully!");
@@ -86,8 +97,13 @@ export default function AddVisitorModal({ onClose, refreshVisitors, editingVisit
                     </div>
                     <div className="form-row">
                         <div className="form-group">
-                            <label>Photo URL</label>
-                            <input placeholder="https://..." value={photo} onChange={(e) => setPhoto(e.target.value)} disabled={loading} />
+                            <label>Visitor Photo</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => setPhoto(e.target.files[0])}
+                                disabled={loading}
+                            />
                         </div>
                         <div className="form-group">
                             <label>ID Proof Number</label>
