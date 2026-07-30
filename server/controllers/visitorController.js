@@ -1,4 +1,5 @@
 import Visitor from "../models/Visitor.js";
+import sendEmail from "../utils/sendEmail.js";
 export const getVisitors=async (req,res)=>{
     const visitors=await Visitor.find({});
     res.status(200).json({
@@ -15,10 +16,19 @@ export const createVisitor=async (req,res)=>{
         })
     }
     const visitor=await Visitor.create({name,email,phone,address,company,photo,idProof})
+    console.log("Sending email to:", visitor.email);
+    await sendEmail(
+            visitor.email,
+            "Visitor Registration Successful",
+            `Hello ${visitor.name},
+
+            Your visitor registration has been completed successfully.
+
+            Thank you for using the Visitor Pass Management System.`
+        );
     res.status(200).json({
         Visitor:visitor
-    })
-    }
+    }) }
     catch(e){
         res.status(500).json({
             error:e.message
