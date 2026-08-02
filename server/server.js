@@ -4,8 +4,11 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import app from "./app.js";
 import sendEmail from "./utils/sendEmail.js";
+import validateEnv from "./utils/validateEnv.js";
 
 dotenv.config();
+
+validateEnv();
 
 connectDB();
 

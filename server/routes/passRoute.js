@@ -1,1 +1,52 @@
-import express from "express";import {    getPasses,    createPass,    getPassById,    updatePassById,    deletePassById} from "../controllers/passController.js";import { reqAuth } from "../middleware/authMiddleware.js";import { requireRole } from "../middleware/roleMiddleware.js";const router = express.Router();router.get(    "/",    reqAuth,    requireRole("Admin", "Security"),    getPasses);router.post(    "/",    reqAuth,    requireRole("Admin", "Security"),    createPass);router.get(    "/:id",    reqAuth,    requireRole("Admin", "Security", "Employee"),    getPassById);router.patch(    "/:id",    reqAuth,    requireRole("Admin", "Security"),    updatePassById);router.delete(    "/:id",    reqAuth,    requireRole("Admin"),    deletePassById);export default router;
+import express from "express";
+import {
+    getPasses,
+    createPass,
+    getPassById,
+    updatePassById,
+    deletePassById
+} from "../controllers/passController.js";
+import { reqAuth } from "../middleware/authMiddleware.js";
+import { requireRole } from "../middleware/roleMiddleware.js";
+import { passValidation } from "../middleware/validationMiddleware.js";
+
+const router = express.Router();
+
+router.get(
+    "/",
+    reqAuth,
+    requireRole("Admin", "Security"),
+    getPasses
+);
+
+router.post(
+    "/",
+    reqAuth,
+    requireRole("Admin", "Security"),
+    passValidation,
+    createPass
+);
+
+router.get(
+    "/:id",
+    reqAuth,
+    requireRole("Admin", "Security", "Employee"),
+    getPassById
+);
+
+router.patch(
+    "/:id",
+    reqAuth,
+    requireRole("Admin", "Security"),
+    passValidation,
+    updatePassById
+);
+
+router.delete(
+    "/:id",
+    reqAuth,
+    requireRole("Admin"),
+    deletePassById
+);
+
+export default router;

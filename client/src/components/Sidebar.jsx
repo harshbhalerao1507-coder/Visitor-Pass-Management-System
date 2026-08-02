@@ -22,6 +22,9 @@ export default function Sidebar() {
                 <Link to="/dashboard" className={location.pathname === "/dashboard" ? "active" : ""}>
                     <FaHome className="icon" /> Dashboard
                 </Link>
+                <Link to="/reports" className={location.pathname === "/reports" ? "active" : ""}>
+                    <FaIdCard className="icon" /> Reports
+                </Link>
                 {user && ["Admin", "Security"].includes(user.role) && (
                     <Link to="/visitors" className={location.pathname === "/visitors" ? "active" : ""}>
                         <FaUsers className="icon" /> Visitors

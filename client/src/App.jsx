@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import RootRedirect from "./components/RootRedirect";
 import AuthRoute from "./components/AuthRoute";
 import NotAuthorized from "./pages/NotAuthorized";
+import Reports from "./pages/Reports";
 import './App.css'
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={["Admin", "Employee", "Security"]} />}>
               <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/appointments" element={<Appointments/>} />
+              <Route path="/reports" element={<Reports/>} />
           </Route>
           <Route element={<ProtectedRoute allowedRoles={["Admin", "Security"]} />}>
               <Route path="/visitors" element={<Visitors/>} />

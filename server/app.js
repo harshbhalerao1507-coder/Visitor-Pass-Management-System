@@ -7,6 +7,7 @@ import passRoutes from "./routes/passRoute.js";
 import checkLogRoute from "../server/routes/checkLogRoute.js"
 import dashboardRoute from "../server/routes/dashboardRoute.js"
 import usersRoutes from "../server/routes/usersRoute.js"
+import reportRoutes from "./routes/reportRoute.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -32,4 +33,5 @@ app.use("/api/passes", passRoutes);
 app.use("/api/checklogs", checkLogRoute);
 app.use("/api/dashboard",dashboardRoute)
 app.use("/api/users", usersRoutes)
+app.use("/api/reports", reportRoutes);
 export default app;
