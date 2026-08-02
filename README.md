@@ -1,94 +1,153 @@
-# Visitor Pass Management System
+# 🚪 Visitor Pass Management System
 
-A full-stack MERN (MongoDB, Express.js, React, Node.js) application for managing visitors, appointments, digital visitor passes, and check-in/check-out operations with secure role-based authentication.
+A full-stack **Visitor Pass Management System** built using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)**.
 
----
-
-## 🚀 Live Demo
-
-### Frontend
-https://visitor-pass-management-harsh.netlify.app
-
-### Backend API
-https://visitor-pass-management-system-52nv.onrender.com
+The system digitizes visitor management by allowing organizations to register visitors, schedule appointments, issue QR-code based visitor passes, verify check-ins/check-outs, and manage visitor records securely.
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-- User Registration & Login
+## 🔐 Authentication & Authorization
+
 - JWT Authentication
-- Role-Based Authorization
-- Visitor Management (CRUD)
-- Appointment Management
-- Digital Pass Generation
-- QR Code Generation
-- Check-In & Check-Out
-- Dashboard with Statistics
-- User Profile
-- Responsive UI
+- Role-Based Access Control
+- Secure Login & Registration
+- Protected Routes
 
 ---
 
-## 🛠 Tech Stack
+## 👥 User Roles
+
+- Admin
+- Security / Front Desk
+- Employee / Host
+
+---
+
+## 👤 Visitor Management
+
+- Add Visitor
+- Update Visitor
+- Delete Visitor
+- Search Visitors
+- Upload Visitor Photo
+- View Visitor Details
+
+---
+
+## 📅 Appointment Management
+
+- Create Appointment
+- Approve / Reject Appointment
+- Employee Assignment
+- Appointment Status Tracking
+
+---
+
+## 🎫 Pass Management
+
+- Generate Digital Visitor Pass
+- QR Code Generation
+- PDF Pass Generation
+
+---
+
+## 🚪 Check-In / Check-Out
+
+- Visitor Check-In
+- Visitor Check-Out
+- Check Logs
+
+---
+
+## 📊 Dashboard & Reports
+
+- Dashboard Statistics
+- Charts
+- Search
+- Advanced Filters
+- CSV Export
+- Excel Export
+
+---
+
+## 📧 Notifications
+
+- Email Notifications using Brevo API
+
+---
+
+## ✅ Validation
+
+- Backend Input Validation
+- Environment Variable Validation
+
+---
+
+## 🌱 Demo Data
+
+- MongoDB Seed Script
+
+---
+
+# 🛠 Tech Stack
 
 ### Frontend
-- React
-- Vite
-- Axios
+
+- React.js
 - React Router
+- Axios
 - CSS
 
 ### Backend
+
 - Node.js
 - Express.js
-- MongoDB
-- Mongoose
 - JWT
-- bcrypt
+- Multer
+- Bcrypt
 - QRCode
 - PDFKit
+- Brevo Email API
+
+### Database
+
+- MongoDB
+- Mongoose
 
 ---
 
-## 📁 Project Structure
+# 📁 Folder Structure
 
 ```
-9_assignment/
+9_assignment
 │
-├── client/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── ...
-│
-├── server/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── config/
-│   ├── package.json
-│   └── ...
+├── client
+├── server
+├── screenshots
+└── README.md
 ```
 
 ---
 
-## ⚙️ Installation
+# ⚙ Installation
 
-### Clone Repository
+## Clone Repository
 
 ```bash
-git clone <repository-url>
-cd 9_assignment
+git clone https://github.com/harshbhalerao1507-coder/Visitor-Pass-Management-System.git
 ```
+
+---
+
+## Install Dependencies
 
 ### Backend
 
 ```bash
 cd server
 npm install
-npm run dev
 ```
 
 ### Frontend
@@ -96,81 +155,198 @@ npm run dev
 ```bash
 cd client
 npm install
+```
+
+---
+
+# 🔑 Environment Variables
+
+Create a `.env` file inside the **server** folder.
+
+```env
+PORT=5000
+
+MONGO_URI=<Your MongoDB URI>
+
+SECRET=<Your JWT Secret>
+
+BREVO_API_KEY=<Your Brevo API Key>
+
+SENDER_EMAIL=<Your Verified Email>
+```
+
+---
+
+# ▶ Running the Project
+
+### Backend
+
+```bash
+cd server
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd client
 npm run dev
 ```
 
 ---
 
-## 🔑 Environment Variables
+# 🌱 Seed Demo Data
 
-### Backend (.env)
-
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-SECRET=your_jwt_secret
-EXPIRE=7d
+```bash
+cd server
+npm run seed
 ```
 
-### Frontend (.env)
+The script automatically creates demo users, visitors, appointments, passes, and check logs.
 
-```env
-VITE_API_URL=http://localhost:5000/api
+---
+
+# 📸 Screenshots
+
+## Login Page
+
+![Login](screenshots/login.png.png)
+
+---
+
+## Register Page
+
+![Register](screenshots/register.png.png)
+
+---
+
+## Dashboard
+
+![Dashboard](screenshots/dashboard.png.png)
+
+---
+
+## Visitors
+
+![Visitors](screenshots/visitors.png.png)
+
+---
+
+## Appointments
+
+![Appointments](screenshots/appointment.png.png)
+
+---
+
+## Pass Management
+
+![Pass](screenshots/pass.png.png)
+
+---
+
+## Reports
+
+![Reports](screenshots/reports.png.png)
+
+---
+
+# 🎥 Demo Video
+
+https://youtu.be/WDcjWJ3BXPw
+
+---
+
+# 🌐 Deployment
+
+## Frontend
+
+https://visitor-pass-management-harsh.netlify.app
+
+## Backend
+
+https://visitor-pass-management-system-52nv.onrender.com
+
+---
+
+# 👤 Demo Credentials
+
+## Admin
+
+Email
+
+```
+admin@demo.com
 ```
 
-For production:
+Password
 
-```env
-VITE_API_URL=https://visitor-pass-management-system-52nv.onrender.com/api
+```
+Admin@123
 ```
 
 ---
 
-## 👥 Roles
+## Security
 
-- Admin
-- Security
-- Receptionist
-- Visitor
+Email
 
-Each role has access only to authorized features.
+```
+security@demo.com
+```
+
+Password
+
+```
+Security@123
+```
 
 ---
 
-## 📌 API Modules
+## Employee
+
+Email
+
+```
+employee1@demo.com
+```
+
+Password
+
+```
+Employee@123
+```
+
+---
+
+# 📦 API Modules
 
 - Authentication
+- Users
 - Visitors
 - Appointments
-- Pass Management
-- Check-In / Check-Out
+- Passes
+- Reports
 - Dashboard
+- Check Logs
 
 ---
 
-## 📦 Deployment
+# 🚀 Future Enhancements
 
-### Frontend
-Netlify
-
-### Backend
-Render
-
-### Database
-MongoDB Atlas
+- OTP Verification
+- SMS Notifications
+- Multi-Organization Support
+- Docker Deployment
+- Advanced Analytics
 
 ---
 
-## 👨‍💻 Developed By
+# 👨‍💻 Author
 
 **Harsh Bhalerao**
 
-Computer Engineering Student
+Third Year Computer Engineering Student
 
-Savitribai Phule Pune University (SPPU)
+GitHub
 
----
-
-## 📄 License
-
-This project is developed for educational and academic purposes.
+https://github.com/harshbhalerao1507-coder
