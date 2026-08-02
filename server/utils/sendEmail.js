@@ -1,27 +1,36 @@
-import nodemailer from "nodemailer";
+import axios from "axios";
 
 const sendEmail = async (to, subject, text) => {
-    const transporter = nodemailer.createTransport({
-        host: "smtp-relay.brevo.com",
-        port: 587,
-        secure: false,
-        auth: {
-            user: process.env.BREVO_USER,
-            pass: process.env.BREVO_PASS,
-        },
-    });
-
     try {
-        await transporter.sendMail({
-            from: process.env.SENDER_EMAIL,
-            to,
-            subject,
-            text,
-        });
+        await axios.post(
+            "https://api.brevo.com/v3/smtp/email",
+            {
+                sender: {
+                    name: "Visitor Pass Management",
+                    email: process.env.SENDER_EMAIL,
+                },
+                to: [
+                    {
+                        email: to,
+                    },
+                ],
+                subject: subject,
+                textContent: text,
+            },
+            {
+                headers: {
+                    "api-key": process.env.BREVO_API_KEY,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
 
         console.log("Email sent successfully");
     } catch (error) {
-        console.error("Email sending failed:", error);
+        console.error(
+            "Email sending failed:",
+            error.response?.data || error.message
+        );
     }
 };
 
