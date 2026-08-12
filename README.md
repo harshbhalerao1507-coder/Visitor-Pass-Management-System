@@ -229,30 +229,41 @@ The script automatically creates demo users, visitors, appointments, passes, and
 ## Visitors
 
 ![Visitors](screenshots/visitors.png.png)
+![Visitors](screenshots/visitor2.png.png)
 
 ---
 
 ## Appointments
 
 ![Appointments](screenshots/appointment.png.png)
+![Appointments](screenshots/appointment2.png.png)
 
 ---
 
 ## Pass Management
 
 ![Pass](screenshots/pass.png.png)
+![Pass](screenshots/pass2.png.png)
+
+---
+
+## Qr Code Scanning
+
+![Pass](screenshots/qr.png.png)
+![Pass](screenshots/qr2.png.png)
 
 ---
 
 ## Reports
 
 ![Reports](screenshots/reports.png.png)
+![Reports](screenshots/reports2.png.png)
 
 ---
 
 # 🎥 Demo Video
 
-https://youtu.be/WDcjWJ3BXPw
+[https://youtu.be/WDcjWJ3BXPw](https://youtu.be/9Z-nOeiTBkE)
 
 ---
 
