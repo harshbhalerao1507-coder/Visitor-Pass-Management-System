@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 import UserProfile from "./UserProfile";
-import { FaHome, FaUsers, FaCalendarAlt, FaIdCard, FaSignInAlt, FaSignOutAlt, FaPowerOff } from "react-icons/fa";
+import { FaHome, FaUsers, FaCalendarAlt, FaIdCard, FaPowerOff, FaQrcode, FaClipboardList } from "react-icons/fa";
 export default function Sidebar() {
     const location = useLocation();
     let user = null;
@@ -39,13 +39,13 @@ export default function Sidebar() {
                     </Link>
                 )}
                 {user && ["Admin", "Security"].includes(user.role) && (
-                    <Link to="/checkin" className={location.pathname === "/checkin" ? "active" : ""}>
-                        <FaSignInAlt className="icon" /> Check In
+                    <Link to="/qr-scan" className={location.pathname === "/qr-scan" ? "active" : ""}>
+                        <FaQrcode className="icon" /> QR Scanner
                     </Link>
                 )}
                 {user && ["Admin", "Security"].includes(user.role) && (
-                    <Link to="/checkout" className={location.pathname === "/checkout" ? "active" : ""}>
-                        <FaSignOutAlt className="icon" /> Check Out
+                    <Link to="/check-logs" className={location.pathname === "/check-logs" ? "active" : ""}>
+                        <FaClipboardList className="icon" /> Check Logs
                     </Link>
                 )}
             </nav>

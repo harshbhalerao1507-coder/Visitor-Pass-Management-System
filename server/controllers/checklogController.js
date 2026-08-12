@@ -1,1 +1,56 @@
-import Pass from "../models/Pass.js";import CheckLog from "../models/CheckLog.js";export const checkIn = async (req, res) => {    try {        const { id } = req.body;        const pass = await Pass.findById(id);        if (!pass) {            return res.status(404).json({                message: "Pass not found"            });        }        if (pass.status !== "Active") {            return res.status(400).json({                message: "Pass has already been used"            });        }        pass.status = "Used";        const checkLog = await CheckLog.create({            pass: pass._id,            securityStaff: req.user._id,            visitor:pass.visitor        });        await pass.save();        res.status(200).json({            message: "Check-in successful",            pass,            checkLog        });    } catch (e) {        res.status(500).json({            error: e.message        });    }};export const checkOut = async (req, res) => {    try {        const { id } = req.body;        const checkLog = await CheckLog.findOne({            pass: id        });        if (!checkLog) {            return res.status(404).json({                message: "Visitor has not checked in"            });        }        if (checkLog.checkOut) {            return res.status(400).json({                message: "Visitor has already checked out"            });        }        checkLog.checkOut = new Date();        await checkLog.save();        res.status(200).json({            message: "Check-out successful",            checkLog        });    } catch (e) {        res.status(500).json({            error: e.message        });    }};
+import Pass from "../models/Pass.js";
+import CheckLog from "../models/CheckLog.js";
+
+export const checkIn = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const pass = await Pass.findById(id);
+        if (!pass) {
+            return res.status(404).json({ message: "Pass not found" });
+        }
+        if (pass.status !== "Active") {
+            return res.status(400).json({ message: "Pass has already been used" });
+        }
+        pass.status = "Used";
+        const checkLog = await CheckLog.create({
+            pass: pass._id,
+            securityStaff: req.user._id,
+            visitor: pass.visitor
+        });
+        await pass.save();
+        res.status(200).json({ message: "Check-in successful", pass, checkLog });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+};
+
+export const checkOut = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const checkLog = await CheckLog.findOne({ pass: id });
+        if (!checkLog) {
+            return res.status(404).json({ message: "Visitor has not checked in" });
+        }
+        if (checkLog.checkOut) {
+            return res.status(400).json({ message: "Visitor has already checked out" });
+        }
+        checkLog.checkOut = new Date();
+        await checkLog.save();
+        res.status(200).json({ message: "Check-out successful", checkLog });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+};
+
+export const getAllCheckLogs = async (req, res) => {
+    try {
+        const checkLogs = await CheckLog.find()
+            .populate("pass")
+            .populate("visitor")
+            .populate("securityStaff", "name email")
+            .sort({ createdAt: -1 });
+        res.status(200).json({ checkLogs });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+};

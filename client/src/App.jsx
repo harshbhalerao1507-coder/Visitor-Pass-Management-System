@@ -5,13 +5,14 @@ import Register from "./pages/Register";
 import Visitors from "./pages/Visitors";
 import Appointments from "./pages/Appointments";
 import PassManagement from "./pages/PassManagement";
-import CheckIn from "./pages/CheckIn";
-import CheckOut from "./pages/CheckOut";
+import CheckLogs from "./pages/CheckLogs";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RootRedirect from "./components/RootRedirect";
 import AuthRoute from "./components/AuthRoute";
 import NotAuthorized from "./pages/NotAuthorized";
 import Reports from "./pages/Reports";
+import QRScan from "./pages/QRScan";
+
 import './App.css'
 function App() {
   return (
@@ -31,8 +32,8 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={["Admin", "Security"]} />}>
               <Route path="/visitors" element={<Visitors/>} />
               <Route path="/passes" element={<PassManagement/>} />
-              <Route path="/checkin" element={<CheckIn/>} />
-              <Route path="/checkout" element={<CheckOut/>} />
+              <Route path="/check-logs" element={<CheckLogs/>} />
+              <Route path="/qr-scan" element={<QRScan />} />
           </Route>
       </Routes>
     </BrowserRouter>
